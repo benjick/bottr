@@ -16,8 +16,14 @@ router.post('/save', (req, res) => {
     code: req.body.func,
     owner: 'Max',
   });
-  func.saveAll().then(() => {
+  func.saveAll()
+  .then(() => {
     res.json({ status: 'ok' });
+  })
+  .catch((e) => {
+    res.json({
+      error: e,
+    });
   });
 });
 
