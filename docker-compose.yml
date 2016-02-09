@@ -1,0 +1,11 @@
+executor:
+  build: executor
+  ports:
+    - "3000:3000"
+  links:
+    - rethink:db
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+
+rethink:
+  image: rethinkdb:latest
