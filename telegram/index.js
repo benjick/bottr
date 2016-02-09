@@ -12,7 +12,7 @@ bot.on('message', function (msg) {
     var command = msg.text.replace('/', '');
     var cmd = command.split(/ (.+)?/);
     var query = qs.stringify({
-      trigger: cmd[0],
+      trigger: cmd[0].split('@')[0],
       string: cmd[1],
     })
     fetch(api + query)
