@@ -6,6 +6,10 @@ executor:
     - rethink:db
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
+  environment:
+    - GITHUB_CLIENT=xxx
+    - GITHUB_SECRET=yyy
+    - JWT_SECRET=zzz
 
 rethink:
   image: rethinkdb:latest
