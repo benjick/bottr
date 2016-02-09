@@ -1,4 +1,5 @@
 build:
+	cd executor && npm run build:client
 	docker build -t api-runner runner
 	docker-compose build
 	#docker build -t api-executor executor
