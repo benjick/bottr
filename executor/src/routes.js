@@ -5,6 +5,13 @@ import * as github from './github';
 
 const router = express.Router();
 
+function error(err, res) {
+  res.status(500).json({
+    status: 'error',
+    error: err,
+  });
+}
+
 router.post('/run', (req, res) => {
   run(req.body.string, req.body.func).then(val => {
     res.send(val);
@@ -12,38 +19,20 @@ router.post('/run', (req, res) => {
 });
 
 router.post('/save', (req, res) => {
-  const func = new Functions({
-    trigger: req.body.string,
-    code: req.body.func,
-    owner: 'Max',
-  });
-  func.saveAll()
+  Functions.saveFunction(req.body.string, req.body.func, req.query.token)
   .then(() => {
     res.json({ status: 'ok' });
   })
-  .catch((e) => {
-    res.json({
-      error: e,
-    });
-  });
+  .catch(e => error(e, res));
 });
 
 router.get('/exec', (req, res) => {
-  Functions.get(req.query.trigger)
-    .then(result => result.code)
-    .then(result => {
-      run(req.query.string, result).then(val => {
-        res.json({
-          result: val.result,
-        });
-      });
-    })
-    .catch((e) => {
-      res.json({
-        status: 'error',
-        error: e,
-      });
-    });
+  Functions.getCode(req.query.trigger)
+  .then(result => run(req.query.string, result))
+  .then(result => {
+    res.json({ result: result.result });
+  })
+  .catch(e => error(e, res));
 });
 
 router.get('/login', (req, res) => {

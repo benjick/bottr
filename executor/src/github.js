@@ -1,12 +1,8 @@
 import fetch from 'node-fetch';
-import jwt from 'jsonwebtoken';
+import { sign } from './token';
 
 export function url() {
   return `https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env.GITHUB_CLIENT}`;
-}
-
-function signToken(user) {
-  return jwt.sign({ user }, process.env.JWT_SECRET);
 }
 
 export function callback(code) {
@@ -29,6 +25,6 @@ export function callback(code) {
   )
   .then(res => res.json())
   .then(res => res.login)
-  .then(signToken)
+  .then(sign)
   .catch(console.log);
 }
