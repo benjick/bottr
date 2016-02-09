@@ -1,6 +1,7 @@
 import express from 'express';
 import { run } from './docker';
 import { Functions } from './db';
+import * as github from './github';
 
 const router = express.Router();
 
@@ -45,18 +46,15 @@ router.get('/exec', (req, res) => {
     });
 });
 
-// router.post('/save', (req, res) => {
-//   const validated = validateToken(req.params.token);
-//   if (validated) {
-//     var func = new Functions({
-//       trigger: req.params.trigger,
-//       code: req.param.code,
-//       owner: validated.user,
-//     });
-//     func.saveAll().then(() => {
-//       res.json({ status: 'ok' });
-//     });
-//   }
-// });
+router.get('/login', (req, res) => {
+  res.redirect(github.url());
+});
+
+router.get('/callback', (req, res) => {
+  github.callback(req.query.code)
+  .then(token => res.json({
+    token,
+  }));
+});
 
 export default router;
