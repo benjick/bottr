@@ -1,6 +1,7 @@
 import Thinky from 'thinky';
 const thinky = Thinky({
   host: 'db',
+  db: 'test',
 });
 const type = thinky.type;
 
