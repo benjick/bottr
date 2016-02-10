@@ -1,4 +1,4 @@
 node_modules
 npm-debug.*
 dev-compose.yml
-bundle.js
+bundle.*
