@@ -2,3 +2,4 @@ node_modules
 npm-debug.*
 dev-compose.yml
 bundle.*
+/executor/src/static
