@@ -1,5 +1,5 @@
 build:
-	cd executor && npm run build:client
+	cd client && npm run build && cp bundle.js ../executor/src/static/
 	docker build -t api-runner runner
 	docker-compose build
 	#docker build -t api-executor executor
