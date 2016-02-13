@@ -1,4 +1,4 @@
-import editor from './ace';
+//import editor from './ace';
 
 const submit = document.getElementById('runCode');
 const text = document.getElementById('codeInput');

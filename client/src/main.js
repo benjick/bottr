@@ -1,14 +1,18 @@
-import './events';
-
 import { html } from 'snabbdom-jsx';
 import { patch } from './lib/snabbdom';
+import App from './App';
 
-//HelloMessage : (attrs, body) -> vnode
-const HelloMessage = ({name}) =>
-  <div on-click={ _ => alert('Hi ' + name) }>
-    Hello {name}
-  </div>;
+import store from './lib/redux';
 
-const vnode = <HelloMessage name="Yassine" />
+let vnode = document.getElementById('root');
 
-patch(document.getElementById('placeholder'), vnode);
+function updateUI(state) {
+  const newVnode = <App state={state} />;
+  vnode = patch(vnode, newVnode);
+}
+
+store.subscribe(() =>
+  updateUI(store.getState())
+)
+
+updateUI(store.getState());

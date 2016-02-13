@@ -4,6 +4,10 @@
   position: absolute;
 }
 
+.editor-wrapper {
+  position: relative;
+}
+
 #console {
   max-width: 100%;
   overflow: scroll;
